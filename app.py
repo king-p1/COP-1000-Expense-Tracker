@@ -1,42 +1,76 @@
+# ---------------------------
+# Expense Tracker - Rough Draft
+# ---------------------------
 
-expenses = []   
+# A list to store all expense entries
+expenses = []
 
+
+# ---------------------------
+# Function: Add a new expense
+# ---------------------------
 def add_expense():
     name = input("Enter expense name: ")
+
     try:
         amount = float(input("Enter expense amount ($): "))
-        expenses.append({'name': name, 'amount': amount})
-        print(f"✅ Added '{name}' for ${amount:.2f}")
-    except ValueError:
-        print("❌ Invalid amount. Please enter a number.")
+        expenses.append({
+            'name': name,
+            'amount': amount
+        })
+        print(f"Added '{name}' for ${amount:.2f}")
 
+    except ValueError:
+        print("Invalid amount. Please enter a number.")
+
+
+# ---------------------------
+# Function: View all expenses
+# ---------------------------
 def view_expenses():
     if not expenses:
         print("No expenses recorded yet.")
         return
+    
     print("\n--- Current Expenses ---")
-    for e in expenses:
-        print(f"{e['name']}: ${e['amount']:.2f}")
+    for expense in expenses:
+        print(f"{expense['name']}: ${expense['amount']:.2f}")
 
+
+# ---------------------------
+# Function: Calculate total spent
+# ---------------------------
 def total_expenses():
-    total = sum(e['amount'] for e in expenses)
-    print(f"\n Total Expenses: ${total:.2f}")
+    total = sum(expense['amount'] for expense in expenses)
+    print(f"\nTotal Expenses: ${total:.2f}")
 
+
+# ---------------------------
+# Function: Remove an expense by name
+# ---------------------------
 def remove_expense():
     name = input("Enter the name of the expense to remove: ")
-    for e in expenses:
-        if e['name'].lower() == name.lower():
-            expenses.remove(e)
+
+    for expense in expenses:
+        if expense['name'].lower() == name.lower():
+            expenses.remove(expense)
             print(f"Removed '{name}'")
             break
     else:
-        print("❌ Expense not found.")
+        print("Expense not found.")
 
+
+# ---------------------------
+# Function: Clear all expenses
+# ---------------------------
 def clear_expenses():
     expenses.clear()
-    print("All expenses cleared!")
+    print("All expenses have been cleared.")
 
-# Main Menu Loop
+
+# ---------------------------
+# Main Menu (Loop)
+# ---------------------------
 while True:
     print("\n*** Expense Tracker Menu ***")
     print("1) Add Expense")
@@ -59,8 +93,7 @@ while True:
     elif choice == '5':
         clear_expenses()
     elif choice == '6':
-        print("You quit Expense Tracker.")
+        print("Exiting Expense Tracker...")
         break
     else:
-        print("Invalid choice. Please try again.")
-
+        print("Invalid option. Please try again.")
